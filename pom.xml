@@ -6,7 +6,7 @@
 	<artifactId>pegasus-core</artifactId>
 	<groupId>com.gtech</groupId>
 	<version>1.0.0-SNAPSHOT</version>
-	
+
 	<licenses>
 		<license>
 			<name>The Apache License, Version 2.0</name>
@@ -17,9 +17,22 @@
 	<developers>
 		<developer>
 			<name>Jérémy Colombet</name>
-			<email>colombetj@gmail.com</email>
+			<email>jeremy.colombet@garganttua.com</email>
 		</developer>
 	</developers>
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>github</id>
+			<name>GitHub Packages</name>
+			<url>https://maven.pkg.github.com/garganttua/pegasus-core</url>
+		</snapshotRepository>
+		<repository>
+			<id>github</id>
+			<name>GitHub Packages</name>
+			<url>https://maven.pkg.github.com/garganttua/pegasus-core</url>
+		</repository>
+	</distributionManagement>
 	
 	<dependencies>
 		<dependency>
