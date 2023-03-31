@@ -294,6 +294,7 @@ public class PGApplicationEngine implements IPGApplicationEngine {
 	
 			builder.basePath("${user.dir}");
 			builder.baseUri("${user.dir}");
+			
 	
 			this.files.forEach((s, f) -> {
 				File file = new File(f.getPath().toString());
@@ -436,13 +437,13 @@ public class PGApplicationEngine implements IPGApplicationEngine {
 			};
 			this.config.launch(inject);
 			
-		} catch (PGApplicationEngineException | PGApplicationException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (PGApplicationEngineException| IllegalStateException | PGApplicationException | IOException e) {
+			this.surveyThread.interrupt();
+			throw new PGServiceException(e);
 		} catch (PGApplicationDeploymentManagerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			this.surveyThread.interrupt();
+			throw new PGServiceException(e);
+		} 
 		this.status = PGServiceStatus.running;
 	}
 	

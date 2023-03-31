@@ -6,6 +6,10 @@ public class PGServiceException extends Exception {
 		super( label.toString() );
 	}
 
+	public PGServiceException(Exception e) {
+		super(e);
+	}
+
 	/**
 	 * 
 	 */
