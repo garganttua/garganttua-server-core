@@ -11,7 +11,6 @@ import java.util.List;
 
 import org.update4j.FileMetadata;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gtech.pegasus.core.exceptions.PGApplicationException;
 
 import lombok.Getter;
@@ -20,7 +19,7 @@ public class PGApplicationManifest {
 
 	public static final String PEGASUS_MANIFEST_EXTENSION = "pem";
 	
-	@JsonIgnore
+//	@JsonIgnore
 	private String path;
 	@Getter
 	private String fileName;
