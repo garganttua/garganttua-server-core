@@ -23,13 +23,13 @@
 
 	<distributionManagement>
 		<snapshotRepository>
-			<id>github</id>
-			<name>GitHub Packages</name>
+			<id>github garganttua server core</id>
+			<name>github garganttua server core</name>
 			<url>https://maven.pkg.github.com/garganttua/garganttua-server-core</url>
 		</snapshotRepository>
 		<repository>
-			<id>github</id>
-			<name>GitHub Packages</name>
+			<id>github garganttua server core</id>
+			<name>github garganttua server core</name>
 			<url>https://maven.pkg.github.com/garganttua/garganttua-server-core</url>
 		</repository>
 	</distributionManagement>
