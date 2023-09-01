@@ -5,6 +5,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -20,6 +23,7 @@ import org.update4j.Configuration.Builder;
 import org.update4j.DynamicClassLoader;
 import org.update4j.FileMetadata;
 import org.update4j.FileMetadata.Reference;
+import org.update4j.OS;
 import org.update4j.Property;
 import org.update4j.UpdateOptions;
 import org.update4j.UpdateOptions.ArchiveUpdateOptions;
@@ -46,9 +50,9 @@ import lombok.extern.java.Log;
 @Log
 public class GGServerApplicationEngine implements IGGServerApplicationEngine {
 	
-	public static final String PEGASUS_SYSTEM_PROPERTY_CONFIGURATION_LOCATIONS = "pegasus.configuration.locations";
+	public static final String GARGANTTUA_SERVER_SYSTEM_PROPERTY_CONFIGURATION_LOCATIONS = "garganttua.server.configuration.locations";
 
-	public static final String PEGASUS_ARGUMENT_CONFIGURATIONS = "--pegasus-configurations";
+	public static final String GARGANTTUA_SERVER_ARGUMENT_CONFIGURATIONS = "--garganttua-server-configurations";
 
 	private String workDirectory;
 
@@ -126,8 +130,7 @@ public class GGServerApplicationEngine implements IGGServerApplicationEngine {
 
 			Configuration configuration = Configuration.read(Files.newBufferedReader(Paths.get(manifest.getPathStr())));
 
-			Path zipPath = Paths.get(this.workDirectory + File.separator
-					+ manifest.getFileName().substring(0, manifest.getFileName().length() - 4) + ".zip");
+			Path zipPath = Paths.get(this.workDirectory + File.separator + manifest.getFileName().substring(0, manifest.getFileName().length() - 4) + ".zip");
 
 			ArchiveUpdateOptions options = UpdateOptions.archive(zipPath);
 
@@ -192,7 +195,7 @@ public class GGServerApplicationEngine implements IGGServerApplicationEngine {
 		this.foldersToRead.add(folder);
 	}
 
-	private void doReadFolder(String path, boolean recursive, boolean isDeployFolder) throws GGServerApplicationEngineException {
+	private void doReadFolder(String path, boolean recursive, boolean isDeployFolder) throws GGServerApplicationEngineException, MalformedURLException, URISyntaxException {
 		File file = new File(path);
 
 		if (!file.exists() && !file.isDirectory()) {
@@ -204,8 +207,8 @@ public class GGServerApplicationEngine implements IGGServerApplicationEngine {
 		for (File subFile : subFiles) {
 			if (isDeployFolder && (GGServerApplicationPlugin.isPlugin(subFile) || GGServerApplicationConfiguration.isConf(subFile))) {
 				Builder builder = Configuration.builder();
-				builder.basePath("${user.dir}");
-				builder.baseUri("${user.dir}");
+				builder.basePath("file://"+this.workDirectory);
+				builder.baseUri("file://"+this.workDirectory);
 				Reference reference = FileMetadata.readFrom(subFile.getAbsolutePath());
 
 				builder.file(reference);
@@ -239,11 +242,12 @@ public class GGServerApplicationEngine implements IGGServerApplicationEngine {
 		}
 	}
 
-	private void doReadFile(File file) {
+	private void doReadFile(File file) throws URISyntaxException, MalformedURLException {
 		Builder builder = Configuration.builder();
-		builder.basePath("${user.dir}");
-		builder.baseUri("${user.dir}");
-		Reference reference = FileMetadata.readFrom(file.getAbsolutePath());
+		builder.basePath("file://" + this.workDirectory);
+		builder.baseUri("file://" + this.workDirectory);
+
+		Reference reference = FileMetadata.readFrom(file.getAbsolutePath()).os(OS.LINUX);
 
 		builder.file(reference);
 
@@ -275,7 +279,7 @@ public class GGServerApplicationEngine implements IGGServerApplicationEngine {
 			this.foldersToRead.forEach(f -> {
 				try {
 					this.doReadFolder(((String) f[0]), ((boolean) f[1]), ((boolean) f[2]));
-				} catch (GGServerApplicationEngineException e) {
+				} catch (GGServerApplicationEngineException | MalformedURLException | URISyntaxException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
@@ -292,10 +296,9 @@ public class GGServerApplicationEngine implements IGGServerApplicationEngine {
 		
 			Builder builder = Configuration.builder();
 	
-			builder.basePath("${user.dir}");
-			builder.baseUri("${user.dir}");
+			builder.basePath("file://"+this.workDirectory);
+			builder.baseUri("file://"+this.workDirectory);
 			
-	
 			this.files.forEach((s, f) -> {
 				File file = new File(f.getPath().toString());
 				Reference metadata = FileMetadata.readFrom(file.getAbsolutePath());
@@ -335,7 +338,7 @@ public class GGServerApplicationEngine implements IGGServerApplicationEngine {
 			String filePath = null;
 	
 			if (manifestName == null) {
-				filePath = this.workDirectory + File.separator + UUID.randomUUID().toString() + "."+GGServerApplicationManifest.PEGASUS_MANIFEST_EXTENSION;
+				filePath = this.workDirectory + File.separator + UUID.randomUUID().toString() + "."+GGServerApplicationManifest.GARGANTTUA_SERVER_MANIFEST_EXTENSION;
 			} else {
 				filePath = manifestName;
 			}
@@ -395,7 +398,7 @@ public class GGServerApplicationEngine implements IGGServerApplicationEngine {
 
 	@Override
 	public String getName() {
-		return "pegasus-application-engine";
+		return "GARGANTTUA_SERVER-application-engine";
 	}
 
 	@Override
@@ -425,10 +428,10 @@ public class GGServerApplicationEngine implements IGGServerApplicationEngine {
 			this.doDeployments();
 			this.generateManifest();
 			
-			list.add(PEGASUS_ARGUMENT_CONFIGURATIONS);
+			list.add(GARGANTTUA_SERVER_ARGUMENT_CONFIGURATIONS);
 			list.add(this.getConfigurationLocation(this.getConfigurations()));
 			
-			System.setProperty(PEGASUS_SYSTEM_PROPERTY_CONFIGURATION_LOCATIONS, this.getConfigurationLocation(this.getConfigurations()));
+			System.setProperty(GARGANTTUA_SERVER_SYSTEM_PROPERTY_CONFIGURATION_LOCATIONS, this.getConfigurationLocation(this.getConfigurations()));
 
 			this.config = org.update4j.Configuration.read(Files.newBufferedReader(Paths.get(this.fullManifest.getPathStr())));
 			this.inject = new Injectable() {

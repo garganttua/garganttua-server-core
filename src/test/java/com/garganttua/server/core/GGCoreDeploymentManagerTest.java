@@ -1,4 +1,4 @@
-package com.gtech.pegasus.core;
+package com.garganttua.server.core;
 
 import org.junit.jupiter.api.Test;
 

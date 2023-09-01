@@ -17,7 +17,7 @@ import lombok.Getter;
 
 public class GGServerApplicationManifest {
 
-	public static final String PEGASUS_MANIFEST_EXTENSION = "pem";
+	public static final String GARGANTTUA_SERVER_MANIFEST_EXTENSION = "ggm";
 	
 //	@JsonIgnore
 	private String path;
@@ -36,8 +36,8 @@ public class GGServerApplicationManifest {
 		this.fileName = file.getName();
 		this.fileExtension = this.fileName.split("\\.")[this.fileName.split("\\.").length-1];
 		
-		if( !this.fileExtension.equals(GGServerApplicationManifest.PEGASUS_MANIFEST_EXTENSION) ) {
-			throw new GGServerApplicationException("Manifest file "+this.file.getPath().toString()+" is not a valid file. Should be with extension "+GGServerApplicationManifest.PEGASUS_MANIFEST_EXTENSION);
+		if( !this.fileExtension.equals(GGServerApplicationManifest.GARGANTTUA_SERVER_MANIFEST_EXTENSION) ) {
+			throw new GGServerApplicationException("Manifest file "+this.file.getPath().toString()+" is not a valid file. Should be with extension "+GGServerApplicationManifest.GARGANTTUA_SERVER_MANIFEST_EXTENSION);
 		}
 	}
 	
@@ -60,7 +60,7 @@ public class GGServerApplicationManifest {
 	}
 
 	public static boolean isManifest(File f) {
-		if( f.getPath().toString().endsWith(GGServerApplicationManifest.PEGASUS_MANIFEST_EXTENSION) ) {
+		if( f.getPath().toString().endsWith(GGServerApplicationManifest.GARGANTTUA_SERVER_MANIFEST_EXTENSION) ) {
 			return true;
 		}
 		return false;

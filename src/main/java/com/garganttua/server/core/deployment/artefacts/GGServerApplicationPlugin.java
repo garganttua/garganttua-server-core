@@ -24,7 +24,7 @@ import lombok.Getter;
 @Getter
 public class GGServerApplicationPlugin {
 	
-	public static final String PEGASUS_PLUGIN_EXTENSION = "peg";
+	public static final String GARGANTTUA_SERVER_PLUGIN_EXTENSION = "ggp";
 
 	private File pluginFile;
 	private String fileName;
@@ -41,7 +41,7 @@ public class GGServerApplicationPlugin {
 
 		if (!this.fileExtension.equals("peg")) {
 			throw new GGServerApplicationException("Plugin file " + this.pluginFile.getPath().toString()
-					+ " is not a valid file. Should be with extension "+GGServerApplicationPlugin.PEGASUS_PLUGIN_EXTENSION);
+					+ " is not a valid file. Should be with extension "+GGServerApplicationPlugin.GARGANTTUA_SERVER_PLUGIN_EXTENSION);
 		}
 	}
 
@@ -218,7 +218,7 @@ public class GGServerApplicationPlugin {
 		
 		manifestFolder.mkdirs();
 		
-		String filePath = manifestFolder.getAbsolutePath()+File.separator+plugin.fileName.substring(0, plugin.fileName.length()-4)+"."+GGServerApplicationManifest.PEGASUS_MANIFEST_EXTENSION;
+		String filePath = manifestFolder.getAbsolutePath()+File.separator+plugin.fileName.substring(0, plugin.fileName.length()-4)+"."+GGServerApplicationManifest.GARGANTTUA_SERVER_MANIFEST_EXTENSION;
 
 	    try {
 	    	BufferedWriter bwriter = new BufferedWriter(new FileWriter(filePath));
@@ -232,7 +232,7 @@ public class GGServerApplicationPlugin {
 	}
 
 	public static boolean isPlugin(File file) {
-		if( file.getPath().toString().endsWith(GGServerApplicationPlugin.PEGASUS_PLUGIN_EXTENSION) ) {
+		if( file.getPath().toString().endsWith(GGServerApplicationPlugin.GARGANTTUA_SERVER_PLUGIN_EXTENSION) ) {
 			return true;
 		}
 		return false;
@@ -250,7 +250,7 @@ public class GGServerApplicationPlugin {
 		}
 		
 		for( File f: manifestFolder.listFiles() ) {
-			if( f.getName().equals(fileName+"."+GGServerApplicationManifest.PEGASUS_MANIFEST_EXTENSION) && f.isFile() ) {
+			if( f.getName().equals(fileName+"."+GGServerApplicationManifest.GARGANTTUA_SERVER_MANIFEST_EXTENSION) && f.isFile() ) {
 				manifestExist = true;
 			}
 		}
@@ -278,7 +278,7 @@ public class GGServerApplicationPlugin {
 		}
 		
 		for( File f: manifestFolder.listFiles() ) {
-			if( f.getName().equals(fileName+"."+GGServerApplicationManifest.PEGASUS_MANIFEST_EXTENSION) && f.isFile() ) {
+			if( f.getName().equals(fileName+"."+GGServerApplicationManifest.GARGANTTUA_SERVER_MANIFEST_EXTENSION) && f.isFile() ) {
 				manifestExist = true;
 			}
 		}
@@ -303,7 +303,7 @@ public class GGServerApplicationPlugin {
 	}
 
 	public GGServerApplicationManifest getManifest(File manifestsFolder) throws GGServerApplicationException {
-		String manifestFileName = this.fileName.substring(0, this.fileName.length()-4)+"."+GGServerApplicationManifest.PEGASUS_MANIFEST_EXTENSION;
+		String manifestFileName = this.fileName.substring(0, this.fileName.length()-4)+"."+GGServerApplicationManifest.GARGANTTUA_SERVER_MANIFEST_EXTENSION;
 		
 		for( File f: manifestsFolder.listFiles() ) {
 			if( f.getName().equals(manifestFileName) && GGServerApplicationManifest.isManifest(f) ) {

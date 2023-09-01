@@ -84,14 +84,14 @@ public class GGServerApplicationDeploymentManager {
 	}
 
 	public void doDeployment() throws GGServerApplicationDeploymentManagerException, GGServerApplicationException {
-		log.info("== Pegasus Server Plugins Deployment ==");
+		log.info("== Garganttua Server Plugins Deployment ==");
 		
 		File deployFolder = new File(this.deployFolder);
 		
 		List<String> pluginNames = new ArrayList<String>();
 		
 		if( !deployFolder.exists() && !deployFolder.isDirectory() ) {
-			throw new GGServerApplicationDeploymentManagerException("");
+			throw new GGServerApplicationDeploymentManagerException("deploy folder does not exits");
 		} else {
 			File[] subFiles = deployFolder.listFiles();
 			
@@ -140,7 +140,7 @@ public class GGServerApplicationDeploymentManager {
 	}
 
 	public void undeploy(GGServerApplicationPlugin plugin) throws GGServerApplicationDeploymentManagerException, GGServerApplicationException {
-		log.info("== Pegasus Server Plugin Undeployment ==");
+		log.info("== GARGANTTUA_SERVER Server Plugin Undeployment ==");
 		File manifestsFolder = new File(this.manifestsFolder);
 		File deployFolder = new File(this.deployFolder);
 		
