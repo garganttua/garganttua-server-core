@@ -5,7 +5,7 @@
 	<packaging>jar</packaging>
 	<artifactId>garganttua-server-core</artifactId>
 	<groupId>com.garganttua</groupId>
-	<version>1.0.2-SNAPSHOT</version>
+	<version>1.0.2</version>
 
 	<licenses>
 		<license>
