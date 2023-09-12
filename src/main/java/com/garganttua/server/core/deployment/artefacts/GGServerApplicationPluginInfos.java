@@ -53,9 +53,9 @@ public class GGServerApplicationPluginInfos {
 		this.fileName = pluginInfosFile.getName();
 		this.fileExtension = this.fileName.split("\\.")[this.fileName.split("\\.").length - 1];
 
-		if (!this.fileExtension.equals("ped")) {
+		if (!this.fileExtension.equals("ggd")) {
 			throw new GGServerApplicationException("PluginInfos file " + this.pluginInfosFile.getPath().toString()
-					+ " is not a valid file. Should be with extension .ped");
+					+ " is not a valid file. Should be with extension .ggd");
 		}
 		
 		
@@ -103,14 +103,14 @@ public class GGServerApplicationPluginInfos {
 	}
 	
 	public static boolean isPluginInfos(String name) {
-		if( name.endsWith(".ped") ) {
+		if( name.endsWith(".ggd") ) {
 			return true;
 		}
 		return false;
 	}
 	
 	public static boolean isPluginInfos(File file) {
-		if( file.getPath().toString().endsWith(".ped") ) {
+		if( file.getPath().toString().endsWith(".ggd") ) {
 			return true;
 		}
 		return false;
