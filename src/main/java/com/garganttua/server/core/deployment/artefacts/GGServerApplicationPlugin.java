@@ -39,7 +39,7 @@ public class GGServerApplicationPlugin {
 		this.fileName = pluginFile.getName();
 		this.fileExtension = this.fileName.split("\\.")[this.fileName.split("\\.").length - 1];
 
-		if (!this.fileExtension.equals("peg")) {
+		if (!this.fileExtension.equals(GARGANTTUA_SERVER_PLUGIN_EXTENSION)) {
 			throw new GGServerApplicationException("Plugin file " + this.pluginFile.getPath().toString()
 					+ " is not a valid file. Should be with extension "+GGServerApplicationPlugin.GARGANTTUA_SERVER_PLUGIN_EXTENSION);
 		}

@@ -207,8 +207,8 @@ public class GGServerApplicationEngine implements IGGServerApplicationEngine {
 		for (File subFile : subFiles) {
 			if (isDeployFolder && (GGServerApplicationPlugin.isPlugin(subFile) || GGServerApplicationConfiguration.isConf(subFile))) {
 				Builder builder = Configuration.builder();
-				builder.basePath("file://"+this.workDirectory);
-				builder.baseUri("file://"+this.workDirectory);
+				builder.basePath("file://${user.dir}");
+				builder.baseUri("file://${user.dir}");
 				Reference reference = FileMetadata.readFrom(subFile.getAbsolutePath());
 
 				builder.file(reference);
@@ -244,8 +244,8 @@ public class GGServerApplicationEngine implements IGGServerApplicationEngine {
 
 	private void doReadFile(File file) throws URISyntaxException, MalformedURLException {
 		Builder builder = Configuration.builder();
-		builder.basePath("file://" + this.workDirectory);
-		builder.baseUri("file://" + this.workDirectory);
+		builder.basePath("file://${user.dir}");
+		builder.baseUri("file://${user.dir}");
 
 		Reference reference = FileMetadata.readFrom(file.getAbsolutePath()).os(OS.LINUX);
 
@@ -296,8 +296,8 @@ public class GGServerApplicationEngine implements IGGServerApplicationEngine {
 		
 			Builder builder = Configuration.builder();
 	
-			builder.basePath("file://"+this.workDirectory);
-			builder.baseUri("file://"+this.workDirectory);
+			builder.basePath("file://${user.dir}");
+			builder.baseUri("file://${user.dir}");
 			
 			this.files.forEach((s, f) -> {
 				File file = new File(f.getPath().toString());
@@ -398,7 +398,7 @@ public class GGServerApplicationEngine implements IGGServerApplicationEngine {
 
 	@Override
 	public String getName() {
-		return "GARGANTTUA_SERVER-application-engine";
+		return "gargantta-server-application-engine";
 	}
 
 	@Override
