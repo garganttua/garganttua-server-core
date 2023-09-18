@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -394,6 +393,7 @@ public class GGServerApplicationEngine implements IGGServerApplicationEngine {
 	
 	public void undeploy(GGServerApplicationPlugin plugin) throws GGServerApplicationDeploymentManagerException, GGServerApplicationException {
 		this.deploymentManager.undeploy(plugin);
+		this.plugins.remove(plugin);
 	}
 
 	@Override

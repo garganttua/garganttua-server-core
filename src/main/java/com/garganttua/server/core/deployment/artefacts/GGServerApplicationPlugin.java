@@ -196,8 +196,8 @@ public class GGServerApplicationPlugin {
 		List<GGServerApplicationConfiguration> configurations = plugin.getConfigurations(deployFolder);
 		
 		Builder config = Configuration.builder();
-		config.basePath(deployFolder.getAbsolutePath()+File.separator+plugin.fileName.substring(0, plugin.fileName.length()-4));
-		config.baseUri(deployFolder.getAbsolutePath()+File.separator+plugin.fileName.substring(0, plugin.fileName.length()-4));
+		config.basePath("file://"+deployFolder.getAbsolutePath()+File.separator+plugin.fileName.substring(0, plugin.fileName.length()-4));
+		config.baseUri("file://"+deployFolder.getAbsolutePath()+File.separator+plugin.fileName.substring(0, plugin.fileName.length()-4));
 		
 		libs.forEach(l -> {
 			config.file(FileMetadata.readFrom(l.getFile().getAbsolutePath()).classpath(true));
