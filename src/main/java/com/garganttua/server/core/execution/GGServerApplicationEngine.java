@@ -393,6 +393,7 @@ public class GGServerApplicationEngine implements IGGServerApplicationEngine {
 	
 	public void undeploy(GGServerApplicationPlugin plugin) throws GGServerApplicationDeploymentManagerException, GGServerApplicationException {
 		this.deploymentManager.undeploy(plugin);
+		this.plugins.remove(plugin);
 	}
 
 	@Override

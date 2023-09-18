@@ -11,6 +11,7 @@ import java.util.jar.Manifest;
 import com.garganttua.server.core.exceptions.GGServerApplicationException;
 
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 
 /**
@@ -29,6 +30,7 @@ Required-Libs:
  *
  */
 @Getter
+@Slf4j
 public class GGServerApplicationPluginInfos {
 	
 	private File pluginInfosFile;
@@ -43,7 +45,6 @@ public class GGServerApplicationPluginInfos {
 	private String requiredPlugins;
 	private String requiredLibs;
 	
-
 	public GGServerApplicationPluginInfos(File pluginInfosFile) throws GGServerApplicationException {
 		this.pluginInfosFile = pluginInfosFile;
 		if (pluginInfosFile == null || !pluginInfosFile.exists()) {
@@ -58,7 +59,9 @@ public class GGServerApplicationPluginInfos {
 					+ " is not a valid file. Should be with extension .ggd");
 		}
 		
-		
+		if( log.isDebugEnabled() ) {
+			log.debug("reading file "+pluginInfosFile);
+		}
 		InputStream is;
 		try {
 			is = new FileInputStream(pluginInfosFile);
